@@ -29,14 +29,14 @@ app.post("/blogs", jsonParser, async (req, res) => {
         req.body.title,
         req.body.subtitle,
         req.body.body,
-        req.body.report_type,
-        req.body.is_primary,
-        req.body.publisher_name,
-        req.body.publisher_job,
+        req.body.reportType,
+        req.body.isPrimary,
+        req.body.publisherName,
+        req.body.publisherJob,
       ]
     );
     res.status(200).json({
-      message: "Blog was inserted successfully",
+      message: "Blog was created successfully",
     });
   } catch (err) {
     console.error(err);
@@ -44,26 +44,24 @@ app.post("/blogs", jsonParser, async (req, res) => {
   }
 });
 
-app.put("/blogs", jsonParser, async (req, res) => {
+app.put("/blogs/:id", jsonParser, async (req, res) => {
   try {
-    const id = Number(req.url.split("=")[1]);
     await db.query(
       "UPDATE blogs " +
         "SET title = $1, subtitle = $2, body = $3, report_type = $4, is_primary = $5, publisher_name = $6, publisher_job = $7 " +
-        "WHERE id = $8",
+        `WHERE id = ${req.params.id}`,
       [
         req.body.title,
         req.body.subtitle,
         req.body.body,
-        req.body.report_type,
-        req.body.is_primary,
-        req.body.publisher_name,
-        req.body.publisher_job,
-        id,
+        req.body.reportType,
+        req.body.isPrimary,
+        req.body.publisherName,
+        req.body.publisherJob,
       ]
     );
     res.status(200).json({
-      message: "Blog was inserted successfully",
+      message: "Blog was updated successfully",
     });
   } catch (err) {
     console.error(err);
