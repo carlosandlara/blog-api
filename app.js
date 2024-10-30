@@ -20,6 +20,18 @@ app.get("/blogs", async (req, res) => {
   }
 });
 
+app.get("/blogs/:id", async (req, res) => {
+  try {
+    const result = await db.query(
+      `SELECT * FROM blogs WHERE id = ${req.params.id}`
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.post("/blogs", jsonParser, async (req, res) => {
   try {
     await db.query(
