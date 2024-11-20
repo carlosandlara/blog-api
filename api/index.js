@@ -13,6 +13,10 @@ const app = express();
 var jsonParser = bodyParser.json();
 app.use(cors());
 
+app.get("/", function (req, res) {
+  res.send("Hola");
+});
+
 app.get("/blogs", async (req, res) => {
   try {
     const result = await supabase.from("blogs").select();
