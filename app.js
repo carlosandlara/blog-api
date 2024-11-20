@@ -9,10 +9,8 @@ const supabase = createClient(
   process.env.PUBLIC_SUPABASE_KEY
 );
 
-var app = express();
-
+const app = express();
 var jsonParser = bodyParser.json();
-
 app.use(cors());
 
 app.get("/blogs", async (req, res) => {
@@ -84,3 +82,5 @@ app.put("/blogs/:id", jsonParser, async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`);
 });
+
+module.exports = app;
