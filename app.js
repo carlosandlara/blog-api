@@ -1,8 +1,13 @@
+require("dotenv").config();
 const express = require("express");
-const db = require("./db");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-require("dotenv").config();
+const { createClient } = require("@supabase/supabase-js");
+
+const supabase = createClient(
+  process.env.PUBLIC_SUPABASE_URL,
+  process.env.PUBLIC_SUPABASE_KEY
+);
 
 var app = express();
 
@@ -12,8 +17,8 @@ app.use(cors());
 
 app.get("/blogs", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM blogs");
-    res.json(result.rows);
+    const result = await supabase.from("blogs").select();
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -22,10 +27,11 @@ app.get("/blogs", async (req, res) => {
 
 app.get("/blogs/:id", async (req, res) => {
   try {
-    const result = await db.query(
-      `SELECT * FROM blogs WHERE id = ${req.params.id}`
-    );
-    res.json(result.rows[0]);
+    const result = await supabase
+      .from("blogs")
+      .select()
+      .is("id", req.params.id);
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -34,19 +40,15 @@ app.get("/blogs/:id", async (req, res) => {
 
 app.post("/blogs", jsonParser, async (req, res) => {
   try {
-    await db.query(
-      "INSERT INTO blogs(title, subtitle, body, report_type, is_primary, publisher_name, publisher_job) " +
-        "VALUES ($1, $2, $3, $4, $5, $6, $7) ",
-      [
-        req.body.title,
-        req.body.subtitle,
-        req.body.body,
-        req.body.reportType,
-        req.body.isPrimary,
-        req.body.publisherName,
-        req.body.publisherJob,
-      ]
-    );
+    const result = await supabase.from("blogs").insert({
+      title: req.body.title,
+      subtitle: req.body.subtitle,
+      body: req.body.body,
+      report_type: req.body.reportType,
+      is_primary: req.body.isPrimary,
+      publisher_name: req.body.publisherName,
+      publisher_job: req.body.publisherJob,
+    });
     res.status(200).json({
       message: "Blog was created successfully",
     });
@@ -58,20 +60,18 @@ app.post("/blogs", jsonParser, async (req, res) => {
 
 app.put("/blogs/:id", jsonParser, async (req, res) => {
   try {
-    await db.query(
-      "UPDATE blogs " +
-        "SET title = $1, subtitle = $2, body = $3, report_type = $4, is_primary = $5, publisher_name = $6, publisher_job = $7 " +
-        `WHERE id = ${req.params.id}`,
-      [
-        req.body.title,
-        req.body.subtitle,
-        req.body.body,
-        req.body.reportType,
-        req.body.isPrimary,
-        req.body.publisherName,
-        req.body.publisherJob,
-      ]
-    );
+    const result = await supabase
+      .from("blogs")
+      .update({
+        title: req.body.title,
+        subtitle: req.body.subtitle,
+        body: req.body.body,
+        report_type: req.body.reportType,
+        is_primary: req.body.isPrimary,
+        publisher_name: req.body.publisherName,
+        publisher_job: req.body.publisherJob,
+      })
+      .eq("id", req.params.id);
     res.status(200).json({
       message: "Blog was updated successfully",
     });
