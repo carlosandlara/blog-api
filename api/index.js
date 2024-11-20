@@ -32,7 +32,7 @@ app.get("/blogs/:id", async (req, res) => {
     const result = await supabase
       .from("blogs")
       .select()
-      .is("id", req.params.id);
+      .eq("id", req.params.id);
     res.json(result);
   } catch (err) {
     console.error(err);

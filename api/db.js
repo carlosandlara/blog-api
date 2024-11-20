@@ -1,5 +1,5 @@
 require("dotenv").config();
-// const { Pool } = require("pg");
+const { Pool } = require("pg");
 const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
@@ -8,11 +8,11 @@ const supabase = createClient(
 );
 
 // const pool = new Pool({
-//   user: process.env.PUBLIC_POSTGRES_USER,
-//   password: process.env.PUBLIC_POSTGRES_PASSWORD,
-//   host: process.env.PUBLIC_POSTGRES_HOST,
-//   port: process.env.PUBLIC_PG_PORT,
-//   database: process.env.PUBLIC_POSTGRES_DATABASE,
+//   user: process.env.PG_USER,
+//   password: process.env.PG_PASS,
+//   host: process.env.PG_HOST,
+//   port: process.env.PG_PORT,
+//   database: process.env.PG_DB_NAME,
 // });
 
 module.exports = {
