@@ -1,31 +1,31 @@
 // require("dotenv").config();
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 // const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
 
-const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_KEY
-);
+// const supabase = createClient(
+//   process.env.PUBLIC_SUPABASE_URL,
+//   process.env.PUBLIC_SUPABASE_KEY
+// );
 
 const app = express();
 // var jsonParser = bodyParser.json();
-// app.use(cors());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hola");
 });
 
-app.get("/blogs", async (req, res) => {
-  try {
-    const result = await supabase.from("blogs").select();
-    res.json(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
-});
+// app.get("/blogs", async (req, res) => {
+//   try {
+//     const result = await supabase.from("blogs").select();
+//     res.json(result);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 // app.get("/blogs/:id", async (req, res) => {
 //   try {
