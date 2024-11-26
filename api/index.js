@@ -1,6 +1,6 @@
 // require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 // const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
 
@@ -11,7 +11,7 @@ const supabase = createClient(
 
 const app = express();
 // var jsonParser = bodyParser.json();
-app.use(cors());
+// app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hola");
