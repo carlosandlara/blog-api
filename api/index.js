@@ -6,14 +6,12 @@ const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
   process.env.PUBLIC_SUPABASE_URL,
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttdGJ5bWVucXhsdWZ3aGRhamptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIxMDIwNDksImV4cCI6MjA0NzY3ODA0OX0.YJY90_b3qooopa3rojVceygdtfma1nu3mDemiSDsfWI"
+  process.env.PUBLIC_SUPABASE_KEY
 );
 
 const app = express();
 var jsonParser = bodyParser.json();
 app.use(cors());
-
-console.log(process.env.PUBLIC_SUPABASE_URL);
 
 app.get("/", (req, res) => {
   res.send(`Hola ${process.env}`);
