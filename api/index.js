@@ -14,7 +14,7 @@ var jsonParser = bodyParser.json();
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send(`Hola ${process.env}`);
+  res.send(`Blog API Working`);
 });
 
 app.get("/blogs", async (req, res) => {
