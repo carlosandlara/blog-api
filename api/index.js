@@ -4,10 +4,10 @@ const cors = require("cors");
 // const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
 
-// const supabase = createClient(
-//   process.env.PUBLIC_SUPABASE_URL,
-//   process.env.PUBLIC_SUPABASE_KEY
-// );
+const supabase = createClient(
+  "https://kmtbymenqxlufwhdajjm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttdGJ5bWVucXhsdWZ3aGRhamptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIxMDIwNDksImV4cCI6MjA0NzY3ODA0OX0.YJY90_b3qooopa3rojVceygdtfma1nu3mDemiSDsfWI"
+);
 
 const app = express();
 // var jsonParser = bodyParser.json();
@@ -17,15 +17,15 @@ app.get("/", (req, res) => {
   res.send("Hola");
 });
 
-// app.get("/blogs", async (req, res) => {
-//   try {
-//     const result = await supabase.from("blogs").select();
-//     res.json(result);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
+app.get("/blogs", async (req, res) => {
+  try {
+    const result = await supabase.from("blogs").select();
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // app.get("/blogs/:id", async (req, res) => {
 //   try {
