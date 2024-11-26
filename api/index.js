@@ -1,11 +1,11 @@
-const env = require("dotenv").config();
+// const env = require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
-  env.parsed.PUBLIC_SUPABASE_URL,
+  process.env.PUBLIC_SUPABASE_URL,
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttdGJ5bWVucXhsdWZ3aGRhamptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIxMDIwNDksImV4cCI6MjA0NzY3ODA0OX0.YJY90_b3qooopa3rojVceygdtfma1nu3mDemiSDsfWI"
 );
 
@@ -13,10 +13,10 @@ const app = express();
 var jsonParser = bodyParser.json();
 app.use(cors());
 
-console.log(env.parsed);
+console.log(process.env.PUBLIC_SUPABASE_URL);
 
 app.get("/", (req, res) => {
-  res.send("Hola");
+  res.send(`Hola ${process.env}`);
 });
 
 app.get("/blogs", async (req, res) => {
