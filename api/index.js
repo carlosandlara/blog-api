@@ -1,17 +1,17 @@
-require("dotenv").config();
+// require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const { createClient } = require("@supabase/supabase-js");
+// const cors = require("cors");
+// const bodyParser = require("body-parser");
+// const { createClient } = require("@supabase/supabase-js");
 
-const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_KEY
-);
+// const supabase = createClient(
+//   process.env.PUBLIC_SUPABASE_URL,
+//   process.env.PUBLIC_SUPABASE_KEY
+// );
 
 const app = express();
-var jsonParser = bodyParser.json();
-app.use(cors());
+// var jsonParser = bodyParser.json();
+// app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hola");
